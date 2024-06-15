@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Task.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.entity</a> &gt; <span class="el_source">Task.java</span></div><h1>Task.java</h1><pre class="source lang-java linenums">package com.example.demo.entity;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+<span class="pc" id="L9">@Builder</span>
+@Getter
+<span class="fc" id="L11">@NoArgsConstructor(access = AccessLevel.PROTECTED)</span>
+<span class="fc" id="L12">@AllArgsConstructor</span>
+@Entity
+public class Task {
+<span class="fc" id="L15">    public enum TaskStatus {</span>
+<span class="fc" id="L16">        TODO,</span>
+<span class="fc" id="L17">        IN_PROGRESS,</span>
+<span class="fc" id="L18">        DONE;</span>
+
+        @JsonCreator
+        public static TaskStatus jsonCreator(String str) {
+<span class="nc bnc" id="L22" title="All 2 branches missed.">            for (TaskStatus value : values()) {</span>
+<span class="nc bnc" id="L23" title="All 2 branches missed.">                if (value.name().equalsIgnoreCase(str)) {</span>
+<span class="nc" id="L24">                    return value;</span>
+                }
+            }
+<span class="nc" id="L27">            return TODO;</span>
+        }
+    }
+
+<span class="fc" id="L31">    public Task(String taskName, String taskDescription, TaskStatus taskStatus, Project project, Milestone milestone) {</span>
+<span class="fc" id="L32">        this.taskName = taskName;</span>
+<span class="fc" id="L33">        this.taskDescription = taskDescription;</span>
+<span class="fc" id="L34">        this.taskStatus = taskStatus;</span>
+<span class="fc" id="L35">        this.project = project;</span>
+<span class="fc" id="L36">        this.milestone = milestone;</span>
+<span class="fc" id="L37">    }</span>
+
+    @JsonProperty(&quot;taskId&quot;)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L42">    private Long taskId;</span>
+
+    @JsonProperty(&quot;name&quot;)
+    @NotNull
+<span class="fc" id="L46">    private String taskName;</span>
+
+    @JsonProperty(&quot;description&quot;)
+<span class="fc" id="L49">    private String taskDescription;</span>
+
+    @JsonProperty(&quot;status&quot;)
+    @Enumerated(EnumType.STRING)
+    @NotNull
+<span class="fc" id="L54">    private TaskStatus taskStatus;</span>
+
+//    @JsonProperty(&quot;projectId&quot;)
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = &quot;project_id&quot;)
+<span class="fc" id="L60">    private Project project;</span>
+
+//    @JsonProperty(&quot;milestoneId&quot;)
+    @OneToOne
+    @JoinColumn(name = &quot;milestone_id&quot;)
+<span class="fc" id="L65">    private Milestone milestone;</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

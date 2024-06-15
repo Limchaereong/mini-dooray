@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"name":"hi"}' | http POST 'http://localhost:8080/projects/1/tags' \
+    'Content-Type:application/json'
+----

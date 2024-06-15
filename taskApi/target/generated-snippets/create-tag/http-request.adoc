@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+POST /projects/1/tags HTTP/1.1
+Content-Type: application/json
+Content-Length: 13
+Host: localhost:8080
+
+{"name":"hi"}
+----

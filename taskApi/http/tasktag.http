@@ -1,0 +1,41 @@
+### 새로운 태스크 태그 생성
+POST http://localhost:8082/task-tags
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskTagPk": {
+    "taskId": 37,
+    "tagId": 43
+  }
+}
+
+###
+
+### 태스크 태그 삭제
+DELETE http://localhost:8082/task-tags
+Content-Type: application/json
+Accept: application/json
+
+{
+  "taskId": 1,
+  "tagId": 1
+}
+
+###
+
+### 모든 태스크 태그 조회
+GET http://localhost:8082/task-tags
+Accept: application/json
+
+###
+
+### 특정 태스크의 태그 조회
+GET http://localhost:8082/task-tags/task/43
+Accept: application/json
+
+###
+
+### 특정 태그에 할당된 태스크 조회
+GET http://localhost:8082/task-tags/tag/43
+Accept: application/json

@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"commentContent":"Updated comment content","taskId":2}' | http PUT 'http://localhost:8080/projects/1/tasks/1/comments/2' \
+    'Content-Type:application/json'
+----

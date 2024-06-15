@@ -1,0 +1,41 @@
+### 특정 프로젝트의 모든 마일스톤 조회
+GET http://localhost:8082/projects/1/milestones
+Accept: application/json
+
+###
+
+### 새로운 마일스톤 생성
+POST http://localhost:8082/projects/1/milestones
+Content-Type: application/json
+Accept: application/json
+
+{
+  "milestoneName": "하",
+  "milestoneStartDate": "2024-01-01T00:00:00Z",
+  "milestoneEndDate": "2024-12-31T23:59:59Z"
+}
+
+###
+
+### 마일스톤 업데이트
+PUT http://localhost:8082/projects/1/milestones
+Content-Type: application/json
+Accept: application/json
+
+{
+  "milestoneId": 1,
+  "milestoneName": "수정 완",
+  "milestoneStartDate": "2024-01-01T00:00:00Z",
+  "milestoneEndDate": "2024-12-31T23:59:59Z"
+}
+
+###
+
+### 마일스톤 삭제
+DELETE http://localhost:8082/projects/39/milestones
+Content-Type: application/json
+Accept: application/json
+
+{
+  "milestoneId": 1
+}

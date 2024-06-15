@@ -1,0 +1,35 @@
+### 특정 프로젝트의 모든 태그 조회
+GET http://localhost:8082/projects/1/tags
+Accept: application/json
+
+###
+
+### 새로운 태그 생성
+POST http://localhost:8082/projects/37/tags
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "hi"
+}
+
+###
+
+### 태그 이름 업데이트
+PUT http://localhost:8082/projects/1/tags/hi/name
+Content-Type: text/plain
+Accept: application/json
+
+수정
+
+###
+
+### 특정 태그 삭제
+DELETE http://localhost:8082/projects/1/tags/26
+Accept: application/json
+
+###
+
+### 특정 태그 조회
+GET http://localhost:8082/projects/1/tags/36
+Accept: application/json

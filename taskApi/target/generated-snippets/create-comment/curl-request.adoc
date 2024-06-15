@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/projects/1/tasks/1/comments' -i -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"commentContent":"This is a comment.","taskId":1}'
+----

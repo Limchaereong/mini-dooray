@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/projects/1/tasks' -i -X GET \
+    -H 'Content-Type: application/json' \
+    -d '{"projectId":1}'
+----

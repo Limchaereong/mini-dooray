@@ -1,0 +1,21 @@
+### 특정 프로젝트의 모든 멤버 조회
+GET http://localhost:8082/projects/58/members
+Accept: application/json
+
+###
+
+### 새로운 멤버 추가
+POST http://localhost:8082/projects/1/members
+Content-Type: application/json
+Accept: application/json
+
+{
+  "memberPk": {
+    "projectId": 1,
+    "memberId": 2
+  },
+  "project": {
+    "projectId": 1
+  },
+  "memberRole": "MEMBER"
+}

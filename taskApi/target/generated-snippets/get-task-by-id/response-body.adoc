@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"id":1,"name":"Updated Task","description":"Updated description","status":"IN_PROGRESS","projectId":1,"milestoneId":null}
+----

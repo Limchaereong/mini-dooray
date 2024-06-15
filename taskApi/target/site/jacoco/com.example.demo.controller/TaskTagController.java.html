@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskTagController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.controller</a> &gt; <span class="el_source">TaskTagController.java</span></div><h1>TaskTagController.java</h1><pre class="source lang-java linenums">package com.example.demo.controller;
+
+import com.example.demo.entity.TaskTag;
+import com.example.demo.entity.TaskTagPk;
+import com.example.demo.service.TaskTagService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/task-tags&quot;)
+<span class="fc" id="L14">@RequiredArgsConstructor</span>
+public class TaskTagController {
+    private final TaskTagService taskTagService;
+
+    @PostMapping
+    public ResponseEntity&lt;TaskTag&gt; createTaskTag(@RequestBody TaskTag taskTag) {
+<span class="nc" id="L20">        TaskTag createdTaskTag = taskTagService.createTaskTag(taskTag);</span>
+<span class="nc" id="L21">        return ResponseEntity.ok(createdTaskTag);</span>
+    }
+
+    @DeleteMapping
+    public ResponseEntity&lt;Void&gt; deleteTaskTag(@RequestBody TaskTagPk taskTagPk) {
+<span class="nc" id="L26">        taskTagService.deleteTaskTag(taskTagPk);</span>
+<span class="nc" id="L27">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;TaskTag&gt;&gt; getAllTaskTags() {
+<span class="nc" id="L32">        List&lt;TaskTag&gt; taskTags = taskTagService.getAllTaskTags();</span>
+<span class="nc" id="L33">        return ResponseEntity.ok(taskTags);</span>
+    }
+
+    @GetMapping(&quot;/task/{taskId}&quot;)
+    public ResponseEntity&lt;List&lt;TaskTag&gt;&gt; getTaskTagsByTaskId(@PathVariable Long taskId) {
+<span class="nc" id="L38">        List&lt;TaskTag&gt; taskTags = taskTagService.getTaskTagsByTaskId(taskId);</span>
+<span class="nc" id="L39">        return ResponseEntity.ok(taskTags);</span>
+    }
+
+    @GetMapping(&quot;/tag/{tagId}&quot;)
+    public ResponseEntity&lt;List&lt;TaskTag&gt;&gt; getTaskTagsByTagId(@PathVariable Long tagId) {
+<span class="nc" id="L44">        List&lt;TaskTag&gt; taskTags = taskTagService.getTaskTagsByTagId(tagId);</span>
+<span class="nc" id="L45">        return ResponseEntity.ok(taskTags);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"milestoneName":"New Milestone","milestoneStartDate":"2024-06-10T07:41:04.65002+09:00","milestoneEndDate":"2024-06-20T07:41:04.650029+09:00"}' | http POST 'http://localhost:8080/projects/1/milestones' \
+    'Content-Type:application/json'
+----

@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"projectId":1}' | http GET 'http://localhost:8080/projects/1/tasks' \
+    'Content-Type:application/json'
+----

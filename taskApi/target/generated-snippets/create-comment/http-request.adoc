@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+POST /projects/1/tasks/1/comments HTTP/1.1
+Content-Type: application/json
+Content-Length: 50
+Host: localhost:8080
+
+{"commentContent":"This is a comment.","taskId":1}
+----

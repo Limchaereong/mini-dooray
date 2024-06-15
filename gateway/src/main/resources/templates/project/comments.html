@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 상세</title>
+    <style>
+        .milestone-item .milestone-actions button.edit-button {
+            background-color: #6c757d; /* 회색 */
+            color: white;
+        }
+
+        .milestone-item .milestone-actions button.delete-button {
+            background-color: #dc3545; /* 빨간색 */
+            color: white;
+        }
+
+        .milestone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .milestone-item .title {
+            font-weight: bold;
+        }
+
+        .milestone-item .dates {
+            color: #555;
+        }
+
+        .milestone-item .milestone-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .milestone-item .milestone-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .details div {
+            margin-bottom: 10px;
+        }
+
+        .details div span {
+            display: inline-block;
+            width: 100px;
+            color: #555;
+        }
+
+        .content h2 {
+            margin-top: 0;
+        }
+
+        .editor {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            width: 60%; /* 가로 너비를 60%로 설정 */
+            margin: 0 auto; /* 중앙 배치 */
+            position: relative; /* 상대적 위치 설정 */
+        }
+
+        .editor textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .buttons button:nth-child(2) {
+            background-color: #6c757d;
+        }
+
+        .edit-form {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .edit-form textarea {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        .edit-form button {
+            margin-left: 10px;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="editor">
+    <h3>댓글 리스트</h3>
+    <button type="button" class="close-button" onclick="history.back();">&times;</button>
+    <div th:each="comment : ${comments}" class="milestone-item">
+        <div class="title" th:text="${comment.comment()}"></div>
+
+        <div class="milestone-actions">
+            <a href="#" class="edit-link">
+                <button type="button" class="edit-button">편집</button>
+            </a>
+
+            <form class="edit-form" style="display: none;" method="post"
+                  th:action="@{'/projects/{projectId}/tasks/{taskId}/comments/{commentId}/edit' (projectId=${projectId}, taskId=${taskId}, commentId=${comment.commentId()})}">
+                <textarea id="update_comment" name="update_comment" placeholder="내용을 입력하세요..."></textarea>
+                <button type="submit">저장</button>
+                <button type="button" onclick="history.back()">취소</button>
+            </form>
+
+            <form class="delete-link" method="post"
+                  th:action="@{'/projects/{projectId}/tasks/{taskId}/comments/{commentId}/delete' (projectId=${projectId}, taskId=${taskId},commentId = ${comment.commentId()})}">
+                <button type="submit" class="delete-button">삭제</button>
+            </form>
+        </div>
+    </div>
+    <form method="post"
+          th:action="@{'/projects/{projectId}/tasks/{taskId}/comments' (projectId=${projectId}, taskId=${taskId})}">
+        <textarea id="comment" name="comment" placeholder="내용을 입력하세요..."></textarea>
+        <div class="buttons">
+            <button type="submit">저장</button>
+        </div>
+    </form>
+</div>
+<script>
+    // 편집 버튼 클릭 이벤트 핸들러
+    document.querySelectorAll('.edit-link').forEach((link, index) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const editForm = event.currentTarget.parentNode.querySelector('.edit-form');
+            editForm.style.display = 'block';
+        });
+    });
+</script>
+</body>
+</html>

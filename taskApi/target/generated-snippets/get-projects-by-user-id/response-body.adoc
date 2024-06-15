@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"totalElements":56,"totalPages":6,"first":true,"last":false,"size":10,"content":[{"id":1,"name":"Test Project","status":"ENDED","adminUserId":null},{"id":8,"name":"11","status":"ACTIVE","adminUserId":1},{"id":9,"name":"22","status":"ACTIVE","adminUserId":1},{"id":10,"name":"ㅎㅇㅎㅇ","status":"ACTIVE","adminUserId":1},{"id":11,"name":"머","status":"ENDED","adminUserId":1},{"id":13,"name":"머","status":"ENDED","adminUserId":1},{"id":14,"name":"머","status":"ENDED","adminUserId":1},{"id":15,"name":"머","status":"ENDED","adminUserId":1},{"id":16,"name":"머","status":"ENDED","adminUserId":1},{"id":17,"name":"머","status":"ENDED","adminUserId":1}],"number":0,"sort":{"empty":true,"unsorted":true,"sorted":false},"numberOfElements":10,"pageable":{"pageNumber":0,"pageSize":10,"sort":{"empty":true,"unsorted":true,"sorted":false},"offset":0,"paged":true,"unpaged":false},"empty":false}
+----

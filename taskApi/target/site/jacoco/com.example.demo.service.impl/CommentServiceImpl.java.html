@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CommentServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.service.impl</a> &gt; <span class="el_source">CommentServiceImpl.java</span></div><h1>CommentServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.demo.service.impl;
+
+import com.example.demo.dto.CommentGetDto;
+import com.example.demo.entity.Comment;
+import com.example.demo.entity.Task;
+import com.example.demo.repository.CommentRepository;
+import com.example.demo.repository.TaskRepository;
+import com.example.demo.request.CreateCommentRequest;
+import com.example.demo.request.UpdateCommentRequest;
+import com.example.demo.service.CommentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+<span class="fc" id="L18">@RequiredArgsConstructor</span>
+public class CommentServiceImpl implements CommentService {
+    private final CommentRepository commentRepository;
+    private final TaskRepository taskRepository;
+
+    @Override
+    public List&lt;CommentGetDto&gt; getCommentsByTaskId(Long taskId) {
+<span class="fc" id="L25">        List&lt;CommentGetDto&gt; commentGetDtoList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        for (Comment comment : commentRepository.findAllByTaskTaskId(taskId)) {</span>
+<span class="fc" id="L28">            CommentGetDto commentGetDto = CommentGetDto.builder()</span>
+<span class="fc" id="L29">                    .commentId(comment.getCommentId())</span>
+<span class="fc" id="L30">                    .comment(comment.getCommentContent())</span>
+<span class="fc" id="L31">                    .build();</span>
+<span class="fc" id="L32">            commentGetDtoList.add(commentGetDto);</span>
+<span class="fc" id="L33">        }</span>
+
+<span class="fc" id="L35">        return commentGetDtoList;</span>
+    }
+
+    @Override
+    public Comment getCommentById(Long commentId) {
+<span class="fc" id="L40">        return commentRepository.findById(commentId).orElse(null);</span>
+    }
+
+    @Override
+    public void createComment(CreateCommentRequest createCommentRequest, Long taskId) {
+<span class="fc" id="L45">        Task task = taskRepository.findById(createCommentRequest.taskId()).orElse(null);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        if (task == null) {</span>
+            // Handle task not found
+<span class="fc" id="L48">            throw new IllegalArgumentException(&quot;Invalid Task ID&quot;);</span>
+        }
+<span class="fc" id="L50">        Comment comment = new Comment(createCommentRequest.commentContent(), task);</span>
+<span class="fc" id="L51">        commentRepository.save(comment);</span>
+<span class="fc" id="L52">    }</span>
+
+    @Override
+    public void updateComment(Long commentId, UpdateCommentRequest updateCommentRequest) {
+<span class="fc" id="L56">        Comment comment = commentRepository.findById(commentId).orElse(null);</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (comment == null) {</span>
+            // Handle comment not found
+<span class="fc" id="L59">            throw  new IllegalArgumentException(&quot;Invalid Comment ID&quot;);</span>
+
+        }
+<span class="fc" id="L62">        comment.setCommentContent(updateCommentRequest.commentContent());</span>
+<span class="fc" id="L63">        commentRepository.save(comment);</span>
+<span class="fc" id="L64">    }</span>
+
+    @Override
+    public void deleteComment(Long commentId) {
+<span class="fc bfc" id="L68" title="All 2 branches covered.">        if (commentRepository.existsById(commentId)) {</span>
+<span class="fc" id="L69">            commentRepository.deleteById(commentId);</span>
+        }
+<span class="fc" id="L71">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

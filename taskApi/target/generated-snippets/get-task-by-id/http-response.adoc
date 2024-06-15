@@ -1,0 +1,8 @@
+[source,http,options="nowrap"]
+----
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 122
+
+{"id":1,"name":"Updated Task","description":"Updated description","status":"IN_PROGRESS","projectId":1,"milestoneId":null}
+----

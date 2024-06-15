@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/projects/1/tags/hi/name' -i -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"newTagName":"new Tag"}'
+----

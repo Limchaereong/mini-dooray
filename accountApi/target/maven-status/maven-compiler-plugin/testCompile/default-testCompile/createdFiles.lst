@@ -1,0 +1,8 @@
+com/nhnacademy/accountapi/dto/UserCreateRequestTest.class
+com/nhnacademy/accountapi/AccountApiApplicationTests.class
+com/nhnacademy/accountapi/service/UserServiceTest.class
+com/nhnacademy/accountapi/dto/UserIdsGetDtoTest.class
+com/nhnacademy/accountapi/dto/UserDTOTest.class
+com/nhnacademy/accountapi/controller/UserControllerTest.class
+com/nhnacademy/accountapi/exception/GlobalExceptionHandlerTest.class
+com/nhnacademy/accountapi/dto/UserRoleUpdateRequestTest.class

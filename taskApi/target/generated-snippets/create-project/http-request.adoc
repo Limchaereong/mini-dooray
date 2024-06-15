@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+POST /projects HTTP/1.1
+Content-Type: application/json
+Content-Length: 74
+Host: localhost:8080
+
+{"name":"New Project","status":"ACTIVE","adminUserId":1,"memberIds":[1,2]}
+----

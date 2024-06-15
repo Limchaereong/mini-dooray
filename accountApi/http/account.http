@@ -1,0 +1,44 @@
+### Register a new user
+POST http://localhost:8080/api/users/signup
+Content-Type: application/json
+
+{
+  "email": "sa9904222@example.com",
+  "password": "password"
+}
+
+### Get user by ID
+GET http://localhost:8080/api/users/114
+
+#### Delete user by ID
+#DELETE http://localhost:8080/api/users/114
+#Authorization: Basic dXNlcm5hbWU6cGFzc3dvcmQ=
+
+### Login
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+  "email": "test13232244@example.com",
+  "password": "password"
+}
+
+### Update User Role
+PUT http://localhost:8080/api/users/roles
+Content-Type: application/json
+
+{
+  "emails": ["sa990422@example.com"],
+  "role": "PROJECT_ADMIN"
+}
+
+### Get User IDs by Emails in body
+POST http://localhost:8080/api/users/ids
+Content-Type: application/json
+
+{
+  "emails": ["sa990422@example.com"]
+}
+
+#### Get User IDs by Emails in parameter
+#GET http://localhost:8080/api/users/ids?emails=sa990422@example.com

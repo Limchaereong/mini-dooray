@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그 관리 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .sub-header {
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .search {
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+        .search input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .settings {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .settings a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .tag-inputs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .tag-inputs input[type="text"] {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .tag-inputs button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .tag-inputs button:nth-child(3) {
+            background-color: #6c757d;
+        }
+        .tag-inputs button:nth-child(4) {
+            background-color: red;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">태그 관리 페이지</div>
+    <div class="sub-header">태그를 검색하고 관리합니다.</div>
+
+    <!-- 태그 검색 섹션 -->
+    <div class="search">
+        <input type="text" placeholder="태그 검색">
+    </div>
+
+    <!-- 태그 생성 섹션 -->
+    <div class="settings">
+        <form th:action="@{/projects/{projectId}/tags(projectId=${projectId})}" method="post">
+            <div class="tag-inputs">
+                <input type="text" name="projectId" placeholder="프로젝트 ID" required>
+                <input type="text" name="name" placeholder="새 태그명" required>
+                <button type="submit">생성</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 태그 목록 섹션 -->
+    <ul>
+        <li th:each="tag : ${tags}">
+            <span th:text="${tag.name}">태그명</span>
+            <div class="tag-inputs">
+                <form th:action="@{/projects/{projectId}/tags/edit}" method="post">
+                    <input type="hidden" name="projectId" th:value="${projectId}">
+                    <input type="hidden" name="name" th:value="${tag.name}">
+                    <input type="text" name="newName" placeholder="새 태그명" required>
+                    <button type="submit">수정</button>
+                </form>
+                <form th:action="@{/projects/{projectId}/tags/{tagId}/delete(projectId=${projectId}, tagId=${tag.id})}" method="post">
+                    <button type="submit">삭제</button>
+                </form>
+            </div>
+        </li>
+    </ul>
+    <button type="button" class="close-button" onclick="history.back();">&times;</button>
+</div>
+</body>
+</html>

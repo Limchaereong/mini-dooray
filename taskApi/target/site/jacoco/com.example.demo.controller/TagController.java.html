@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TagController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.controller</a> &gt; <span class="el_source">TagController.java</span></div><h1>TagController.java</h1><pre class="source lang-java linenums">package com.example.demo.controller;
+
+import com.example.demo.entity.Tag;
+import com.example.demo.request.CreateTagRequest;
+import com.example.demo.service.TagService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/projects/{projectId}/tags&quot;)
+<span class="fc" id="L16">@RequiredArgsConstructor</span>
+public class TagController {
+
+    private final TagService tagService;
+
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Tag&gt;&gt; getTagsByProjectId(@PathVariable Long projectId) {
+<span class="fc" id="L23">        List&lt;Tag&gt; tags = tagService.getTagsByProjectId(projectId);</span>
+<span class="fc" id="L24">        return ResponseEntity.ok(tags);</span>
+    }
+
+    @PostMapping
+    public ResponseEntity&lt;Tag&gt; createTag(@PathVariable Long projectId, @Valid @RequestBody CreateTagRequest request, BindingResult bindingResult) {
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">        if (bindingResult.hasErrors()) {</span>
+<span class="nc" id="L30">            return ResponseEntity.badRequest().build();</span>
+        }
+<span class="fc" id="L32">        Tag tag = tagService.createTag(projectId, request);</span>
+<span class="fc" id="L33">        return ResponseEntity.ok(tag);</span>
+    }
+
+    @PutMapping(&quot;/{tagName}/name&quot;)
+    public ResponseEntity&lt;Void&gt; updateTagName(@PathVariable Long projectId, @PathVariable String tagName, @RequestBody String newTagName) {
+<span class="fc" id="L38">        tagService.updateTagName(projectId, tagName, newTagName);</span>
+<span class="fc" id="L39">        return ResponseEntity.ok().build();</span>
+    }
+
+    @DeleteMapping(&quot;/{tagId}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteTag(@PathVariable Long tagId) {
+<span class="fc" id="L44">        tagService.deleteTag(tagId);</span>
+<span class="fc" id="L45">        return ResponseEntity.noContent().build();</span>
+    }
+
+    @GetMapping(&quot;/{tagId}&quot;)
+    public ResponseEntity&lt;Tag&gt; getTagById(@PathVariable Long tagId) {
+<span class="fc" id="L50">        Tag tag = tagService.getTagById(tagId);</span>
+<span class="fc" id="L51">        return ResponseEntity.ok(tag);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

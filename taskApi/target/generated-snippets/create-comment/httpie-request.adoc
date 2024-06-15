@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"commentContent":"This is a comment.","taskId":1}' | http POST 'http://localhost:8080/projects/1/tasks/1/comments' \
+    'Content-Type:application/json'
+----

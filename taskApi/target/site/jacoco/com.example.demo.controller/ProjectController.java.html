@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProjectController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.controller</a> &gt; <span class="el_source">ProjectController.java</span></div><h1>ProjectController.java</h1><pre class="source lang-java linenums">package com.example.demo.controller;
+
+import com.example.demo.dto.ProjectCreateDto;
+import com.example.demo.dto.ProjectGetDto;
+import com.example.demo.dto.ProjectStatusUpdateDto;
+import com.example.demo.entity.Project;
+import com.example.demo.service.ProjectService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+<span class="fc" id="L19">@RequiredArgsConstructor</span>
+@RequestMapping(&quot;/projects&quot;)
+public class ProjectController {
+
+    private final ProjectService projectService;
+
+    // 특정 유저의 프로젝트 목록 조회
+    @GetMapping
+    public ResponseEntity&lt;Page&lt;ProjectGetDto&gt;&gt; getAllProjectsByUserId(@RequestParam(&quot;userId&quot;) Long userId,
+                                                                      @RequestParam(&quot;page&quot;) int page,
+                                                                      @RequestParam(&quot;size&quot;) int size,
+                                                                      @RequestParam(required = false) String sort) {
+        Pageable pageable;
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (sort != null) {</span>
+<span class="nc" id="L33">            pageable = PageRequest.of(page, size, Sort.by(sort));</span>
+        } else {
+<span class="fc" id="L35">            pageable = PageRequest.of(page, size);</span>
+        }
+<span class="fc" id="L37">        Page&lt;ProjectGetDto&gt; projects = projectService.getAllProjectsByUserId(userId, pageable);</span>
+
+<span class="fc" id="L39">        return ResponseEntity.status(HttpStatus.OK).body(projects);</span>
+    }
+
+    // 프로젝트 생성
+    @PostMapping
+    public ResponseEntity&lt;Project&gt; createProject(@RequestBody ProjectCreateDto projectCreateDto) {
+<span class="fc" id="L45">        Project project = projectService.createProject(projectCreateDto);</span>
+<span class="fc" id="L46">        return ResponseEntity.status(HttpStatus.CREATED).body(project);</span>
+    }
+
+
+    // 프로젝트 상태 변경
+    @PutMapping(&quot;/{projectId}/status&quot;)
+    public ResponseEntity&lt;Void&gt; updateProjectStatus(@PathVariable Long projectId, @RequestBody ProjectStatusUpdateDto projectStatusUpdateDto) {
+<span class="fc" id="L53">        projectService.updateProjectStatus(projectId, projectStatusUpdateDto.status());</span>
+<span class="fc" id="L54">        return ResponseEntity.ok().build();</span>
+    }
+
+    // Project
+    // 특정 프로젝트 조회
+    @GetMapping(&quot;/{projectId}&quot;)
+    public ResponseEntity&lt;ProjectGetDto&gt; getProjectById(@PathVariable(&quot;projectId&quot;) Long projectId) {
+<span class="fc" id="L61">        ProjectGetDto projectGetDto = projectService.getProjectByProjectId(projectId);</span>
+<span class="fc" id="L62">        return ResponseEntity.ok(projectGetDto);</span>
+    }
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

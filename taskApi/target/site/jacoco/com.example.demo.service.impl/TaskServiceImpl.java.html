@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.service.impl</a> &gt; <span class="el_source">TaskServiceImpl.java</span></div><h1>TaskServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.demo.service.impl;
+
+import com.example.demo.dto.TaskCreateDto;
+import com.example.demo.dto.TaskGetDto;
+import com.example.demo.request.TaskUpdateRequest;
+import com.example.demo.entity.Milestone;
+import com.example.demo.entity.Project;
+import com.example.demo.entity.Task;
+import com.example.demo.error.ResourceNotFoundException;
+import com.example.demo.repository.MilestoneRepository;
+import com.example.demo.repository.ProjectRepository;
+import com.example.demo.repository.TaskRepository;
+import com.example.demo.service.TaskService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+@Service
+<span class="fc" id="L22">@RequiredArgsConstructor</span>
+public class TaskServiceImpl implements TaskService {
+    private final TaskRepository taskRepository;
+    private final MilestoneRepository milestoneRepository;
+    private final ProjectRepository projectRepository;
+
+    @Override
+    public List&lt;TaskGetDto&gt; findAllTask(Long projectId) {
+<span class="fc" id="L30">        List&lt;Task&gt; taskPage = taskRepository.findAllByProjectProjectId(projectId);</span>
+<span class="fc" id="L31">        List&lt;TaskGetDto&gt; taskGetDtos = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        for(Task task : taskPage) {</span>
+<span class="fc" id="L34">            TaskGetDto taskGetDto = TaskGetDto.builder()</span>
+<span class="fc" id="L35">                    .id(task.getTaskId())</span>
+<span class="fc" id="L36">                    .name(task.getTaskName())</span>
+<span class="fc" id="L37">                    .description(task.getTaskDescription())</span>
+<span class="fc" id="L38">                    .status(task.getTaskStatus())</span>
+<span class="fc" id="L39">                    .projectId(task.getProject().getProjectId())</span>
+<span class="fc" id="L40">                    .build();</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">            if(task.getMilestone() != null)</span>
+            {
+<span class="fc" id="L43">                TaskGetDto.builder().milestoneId(task.getMilestone().getMilestoneId()).build();</span>
+            }
+<span class="fc" id="L45">            taskGetDtos.add(taskGetDto);</span>
+<span class="fc" id="L46">        }</span>
+<span class="fc" id="L47">        return taskGetDtos;</span>
+    }
+
+    @Override
+    public TaskGetDto getById(Long taskId) {
+<span class="fc" id="L52">        Task task = taskRepository.findById(taskId)</span>
+<span class="fc" id="L53">                .orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Task(id = &quot; + taskId + &quot;) not found.&quot;));</span>
+
+<span class="fc" id="L55">        TaskGetDto taskCreateDto =  TaskGetDto.builder()</span>
+<span class="fc" id="L56">                .id(task.getTaskId())</span>
+<span class="fc" id="L57">                .name(task.getTaskName())</span>
+<span class="fc" id="L58">                .description(task.getTaskDescription())</span>
+<span class="fc" id="L59">                .status(task.getTaskStatus())</span>
+<span class="fc" id="L60">                .projectId(task.getProject().getProjectId())</span>
+<span class="fc" id="L61">                .build();</span>
+
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (task.getMilestone() != null){</span>
+<span class="fc" id="L64">            TaskGetDto.builder().milestoneId(task.getMilestone().getMilestoneId()).build();</span>
+        }
+
+<span class="fc" id="L67">        return taskCreateDto;</span>
+
+    }
+
+    @Override
+    public TaskCreateDto create(TaskCreateDto request, Long projectId) {
+<span class="fc" id="L73">        Project project = projectRepository.findById(projectId).orElseThrow(() -&gt; new ResourceNotFoundException(&quot;Project(id = &quot; + projectId + &quot;) not found.&quot;));</span>
+
+<span class="fc" id="L75">        Milestone milestone = null;</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if(request.milestoneId() != null){</span>
+<span class="fc" id="L77">            milestone = milestoneRepository.findById(request.milestoneId()).orElse(null);</span>
+        }
+
+<span class="fc" id="L80">        Task task = new Task(</span>
+<span class="fc" id="L81">                request.name(),</span>
+<span class="fc" id="L82">                request.description(),</span>
+<span class="fc" id="L83">                request.status(),</span>
+                project,
+                milestone
+        );
+
+<span class="fc" id="L88">        taskRepository.save(task);</span>
+
+
+<span class="fc" id="L91">        return TaskCreateDto.builder()</span>
+<span class="fc" id="L92">                .name(task.getTaskName())</span>
+<span class="fc" id="L93">                .description(task.getTaskDescription())</span>
+<span class="fc" id="L94">                .status(task.getTaskStatus())</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">                .milestoneId(Objects.isNull(task.getMilestone()) ? null: task.getMilestone().getMilestoneId())</span>
+<span class="fc" id="L96">                .build();</span>
+
+    }
+
+    @Override
+    public void modifyById(TaskUpdateRequest request, Long taskId) {
+<span class="fc bfc" id="L102" title="All 2 branches covered.">        if(!taskRepository.existsById(taskId)){</span>
+<span class="fc" id="L103">            throw new IllegalArgumentException(&quot;Task id &quot; + taskId + &quot; not exists.&quot;);</span>
+        }
+
+<span class="fc" id="L106">        Milestone milestone = null;</span>
+<span class="pc bpc" id="L107" title="1 of 2 branches missed.">        if(request.milestoneId() != null){</span>
+<span class="fc" id="L108">            milestone = milestoneRepository.findById(request.milestoneId()).orElse(null);</span>
+        }
+
+<span class="fc" id="L111">        taskRepository.updateByTaskId(</span>
+                taskId,
+<span class="fc" id="L113">                request.name(),</span>
+<span class="fc" id="L114">                request.description(),</span>
+<span class="fc" id="L115">                request.status(),</span>
+                milestone);
+<span class="fc" id="L117">    }</span>
+
+    @Override
+    public void deleteById(Long id) {
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if(!taskRepository.existsById(id)){</span>
+<span class="fc" id="L122">            throw new IllegalArgumentException(&quot;Task id &quot; + id + &quot; not exists.&quot;);</span>
+        }
+<span class="fc" id="L124">        taskRepository.deleteById(id);</span>
+<span class="fc" id="L125">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+PUT /projects/1/milestones HTTP/1.1
+Content-Type: application/json
+Content-Length: 162
+Host: localhost:8080
+
+{"milestoneId":1,"milestoneName":"Updated Milestone","milestoneStartDate":"2024-06-10T07:41:05.16634+09:00","milestoneEndDate":"2024-06-20T07:41:05.166368+09:00"}
+----

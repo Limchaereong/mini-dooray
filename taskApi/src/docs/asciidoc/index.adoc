@@ -1,0 +1,175 @@
+= API Documentation
+:toc: left
+:toclevels: 3
+
+== Overview
+
+This document provides an overview of the API endpoints for the project.
+
+== Endpoints
+
+=== Project Endpoints
+
+==== Get All Projects by User ID
+
+Retrieve a paginated list of all projects for a specific user.
+
+include::{snippets}/get-projects-by-user-id/http-request.adoc[]
+include::{snippets}/get-projects-by-user-id/http-response.adoc[]
+
+==== Create Project
+
+Create a new project.
+
+include::{snippets}/create-project/http-request.adoc[]
+include::{snippets}/create-project/http-response.adoc[]
+
+==== Get Project by ID
+
+Retrieve details of a specific project by its ID.
+
+include::{snippets}/get-project-by-id/http-request.adoc[]
+include::{snippets}/get-project-by-id/http-response.adoc[]
+
+=== Member Endpoints
+
+==== Get Members by Project ID
+
+Retrieve a list of members for a specific project.
+
+// include::{snippets}/get-members-by-project-id/http-request.adoc[]
+// include::{snippets}/get-members-by-project-id/http-response.adoc[]
+
+==== Create Member
+
+Create a new member for a specific project.
+
+include::{snippets}/create-member/http-request.adoc[]
+include::{snippets}/create-member/http-response.adoc[]
+
+=== Milestone Endpoints
+
+==== Get All Milestones by Project ID
+
+Retrieve a list of all milestones for a specific project.
+
+// include::{snippets}/get-milestones-by-project-id/http-request.adoc[]
+// include::{snippets}/get-milestones-by-project-id/http-response.adoc[]
+
+==== Create Milestone
+
+Create a new milestone for a specific project.
+
+include::{snippets}/create-milestone/http-request.adoc[]
+include::{snippets}/create-milestone/http-response.adoc[]
+
+==== Update Milestone
+
+Update an existing milestone.
+
+include::{snippets}/update-milestone/http-request.adoc[]
+include::{snippets}/update-milestone/http-response.adoc[]
+
+==== Delete Milestone
+
+Delete a milestone by its ID.
+
+// include::{snippets}/delete-milestone/http-request.adoc[]
+// include::{snippets}/delete-milestone/http-response.adoc[]
+
+=== Comment Endpoints
+
+==== Get Comments by Task ID
+
+Retrieve a list of comments for a specific task.
+
+// include::{snippets}/get-comments-by-task-id/http-request.adoc[]
+// include::{snippets}/get-comments-by-task-id/http-response.adoc[]
+
+==== Create Comment
+
+Create a new comment for a specific task.
+
+include::{snippets}/create-comment/http-request.adoc[]
+include::{snippets}/create-comment/http-response.adoc[]
+
+==== Update Comment
+
+Update an existing comment.
+
+include::{snippets}/update-comment/http-request.adoc[]
+include::{snippets}/update-comment/http-response.adoc[]
+
+==== Delete Comment
+
+Delete a comment by its ID.
+
+include::{snippets}/delete-comment/http-request.adoc[]
+include::{snippets}/delete-comment/http-response.adoc[]
+
+=== Tag Endpoints
+
+==== Get Tags by Project ID
+
+Retrieve a list of tags for a specific project.
+
+include::{snippets}/get-tags-by-project-id/http-request.adoc[]
+include::{snippets}/get-tags-by-project-id/http-response.adoc[]
+
+==== Create Tag
+
+Create a new tag for a specific project.
+
+include::{snippets}/create-tag/http-request.adoc[]
+include::{snippets}/create-tag/http-response.adoc[]
+
+==== Update Tag Name
+
+Update the name of an existing tag.
+//
+// include::{snippets}/update-tag-name/http-request.adoc[]
+// include::{snippets}/update-tag-name/http-response.adoc[]
+
+==== Delete Tag
+
+Delete a tag by its ID.
+
+include::{snippets}/delete-tag/http-request.adoc[]
+include::{snippets}/delete-tag/http-response.adoc[]
+
+=== Task Endpoints
+
+==== Get All Tasks by Project ID
+
+Retrieve a list of tasks for a specific project.
+
+include::{snippets}/get-tasks-by-project-id/http-request.adoc[]
+include::{snippets}/get-tasks-by-project-id/http-response.adoc[]
+
+==== Get Task by ID
+
+Retrieve details of a specific task by its ID.
+
+include::{snippets}/get-task-by-id/http-request.adoc[]
+include::{snippets}/get-task-by-id/http-response.adoc[]
+
+==== Create Task
+
+Create a new task for a specific project.
+//
+// include::{snippets}/create-task/http-request.adoc[]
+// include::{snippets}/create-task/http-response.adoc[]
+
+==== Update Task
+
+Update an existing task.
+
+include::{snippets}/update-task/http-request.adoc[]
+include::{snippets}/update-task/http-response.adoc[]
+
+==== Delete Task
+
+Delete a task by its ID.
+
+// include::{snippets}/delete-task/http-request.adoc[]
+// include::{snippets}/delete-task/http-response.adoc[]

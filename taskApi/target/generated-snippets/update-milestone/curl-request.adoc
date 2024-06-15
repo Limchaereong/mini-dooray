@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/projects/1/milestones' -i -X PUT \
+    -H 'Content-Type: application/json' \
+    -d '{"milestoneId":1,"milestoneName":"Updated Milestone","milestoneStartDate":"2024-06-10T07:41:05.16634+09:00","milestoneEndDate":"2024-06-20T07:41:05.166368+09:00"}'
+----

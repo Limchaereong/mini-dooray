@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"newTagName":"new Tag"}' | http PUT 'http://localhost:8080/projects/1/tags/hi/name' \
+    'Content-Type:application/json'
+----

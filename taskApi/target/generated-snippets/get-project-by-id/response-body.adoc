@@ -1,0 +1,4 @@
+[source,json,options="nowrap"]
+----
+{"id":1,"name":"Test Project","status":"ENDED","adminUserId":null}
+----

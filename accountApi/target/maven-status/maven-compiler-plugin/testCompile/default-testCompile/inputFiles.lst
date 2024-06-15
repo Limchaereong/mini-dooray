@@ -1,0 +1,8 @@
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/AccountApiApplicationTests.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/controller/UserControllerTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/dto/UserCreateRequestTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/dto/UserDTOTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/dto/UserIdsGetDtoTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/dto/UserRoleUpdateRequestTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/exception/GlobalExceptionHandlerTest.java
+/Users/zei/workspace/nhn/mini-dooray/mini-dooray-d-account/src/test/java/com/nhnacademy/accountapi/service/UserServiceTest.java

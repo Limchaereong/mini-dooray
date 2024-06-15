@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Project.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.entity</a> &gt; <span class="el_source">Project.java</span></div><h1>Project.java</h1><pre class="source lang-java linenums">package com.example.demo.entity;
+
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+
+<span class="pc" id="L18">@Builder</span>
+@Getter
+<span class="fc" id="L20">@NoArgsConstructor(access = AccessLevel.PROTECTED)</span>
+<span class="fc" id="L21">@AllArgsConstructor</span>
+@Entity
+public class Project {
+<span class="fc" id="L24">    public enum ProjectStatus {</span>
+<span class="fc" id="L25">        ACTIVE,</span>
+<span class="fc" id="L26">        DORMANT,</span>
+<span class="fc" id="L27">        ENDED;</span>
+
+        @JsonCreator
+        public static ProjectStatus jsonCreator(String str) {
+<span class="pc bpc" id="L31" title="1 of 2 branches missed.">            for (ProjectStatus value : values()) {</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">                if (value.name().equalsIgnoreCase(str)) {</span>
+<span class="fc" id="L33">                    return value;</span>
+                }
+            }
+<span class="nc" id="L36">            return ACTIVE;</span>
+        }
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+<span class="fc" id="L42">    private Long projectId;</span>
+
+    @NotNull
+<span class="nc" id="L45">    @Setter</span>
+<span class="fc" id="L46">    private String projectName;</span>
+
+<span class="fc" id="L48">    @Setter</span>
+    @Enumerated(EnumType.STRING)
+<span class="fc" id="L50">    private ProjectStatus projectStatus;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

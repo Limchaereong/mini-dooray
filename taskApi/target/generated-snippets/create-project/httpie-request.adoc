@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"name":"New Project","status":"ACTIVE","adminUserId":1,"memberIds":[1,2]}' | http POST 'http://localhost:8080/projects' \
+    'Content-Type:application/json'
+----

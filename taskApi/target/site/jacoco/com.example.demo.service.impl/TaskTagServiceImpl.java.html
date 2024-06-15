@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ko"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskTagServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo1</a> &gt; <a href="index.source.html" class="el_package">com.example.demo.service.impl</a> &gt; <span class="el_source">TaskTagServiceImpl.java</span></div><h1>TaskTagServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.demo.service.impl;
+
+import com.example.demo.entity.Tag;
+import com.example.demo.entity.Task;
+import com.example.demo.entity.TaskTag;
+import com.example.demo.entity.TaskTagPk;
+import com.example.demo.repository.TagRepository;
+import com.example.demo.repository.TaskRepository;
+import com.example.demo.repository.TaskTagRepository;
+import com.example.demo.service.TaskTagService;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L18">@RequiredArgsConstructor</span>
+public class TaskTagServiceImpl implements TaskTagService {
+    private final TaskTagRepository taskTagRepository;
+    private final TaskRepository taskRepository;
+    private final TagRepository tagRepository;
+
+    @Override
+    public TaskTag createTaskTag(TaskTag taskTag) {
+<span class="nc" id="L26">        Task task = taskRepository.findById(taskTag.getTaskTagPk().getTaskId())</span>
+<span class="nc" id="L27">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Task not found&quot;));</span>
+<span class="nc" id="L28">        Tag tag = tagRepository.findById(taskTag.getTaskTagPk().getTagId())</span>
+<span class="nc" id="L29">                .orElseThrow(() -&gt; new EntityNotFoundException(&quot;Tag not found&quot;));</span>
+
+        // Task와 Tag 객체를 taskTag에 설정
+<span class="nc" id="L32">        taskTag.setTask(task);</span>
+<span class="nc" id="L33">        taskTag.setTag(tag);</span>
+
+<span class="nc" id="L35">        return taskTagRepository.save(taskTag);</span>
+    }
+
+    @Override
+    public void deleteTaskTag(TaskTagPk taskTagPk) {
+<span class="nc" id="L40">        taskTagRepository.deleteById(taskTagPk);</span>
+<span class="nc" id="L41">    }</span>
+
+    @Override
+    public List&lt;TaskTag&gt; getAllTaskTags() {
+<span class="nc" id="L45">        return taskTagRepository.findAll();</span>
+    }
+
+    @Override
+    public List&lt;TaskTag&gt; getTaskTagsByTaskId(Long taskId) {
+<span class="nc" id="L50">        return taskTagRepository.findAll().stream().filter(tt -&gt; tt.getTask().getTaskId().equals(taskId)).toList();</span>
+    }
+
+    @Override
+    public List&lt;TaskTag&gt; getTaskTagsByTagId(Long tagId) {
+<span class="nc" id="L55">        return taskTagRepository.findAll().stream().filter(tt -&gt; tt.getTag().getId().equals(tagId)).toList();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

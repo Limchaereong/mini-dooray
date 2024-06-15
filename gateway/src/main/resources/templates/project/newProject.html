@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>새 프로젝트</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script>
+        function addMemberEmailField() {
+            // 기존 이메일 필드를 trim하고 빈 문자열인 경우 삭제
+            const existingEmailFields = document.querySelectorAll('input[name="memberEmails"]');
+            existingEmailFields.forEach(field => {
+                field.value = field.value.trim();
+                if (field.value === "") {
+                    field.parentElement.remove();
+                } else {
+                    field.readOnly = true;
+                }
+            });
+
+            // 새로운 이메일 입력 필드 추가
+            const container = document.getElementById('memberEmailsContainer');
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group mb-3';
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'memberEmails';
+            input.className = 'form-control';
+            input.placeholder = '멤버 이메일을 입력하세요';
+
+            const buttonGroup = document.createElement('div');
+            buttonGroup.className = 'input-group-append';
+
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'btn btn-danger';
+            button.onclick = () => container.removeChild(inputGroup);
+            button.innerText = '삭제';
+
+            buttonGroup.appendChild(button);
+            inputGroup.appendChild(input);
+            inputGroup.appendChild(buttonGroup);
+            container.appendChild(inputGroup);
+        }
+
+        function trimMemberEmails() {
+            const memberEmailFields = document.querySelectorAll('input[name="memberEmails"]');
+            memberEmailFields.forEach(field => {
+                field.value = field.value.trim();
+                if (field.value === "") {
+                    field.parentElement.remove();
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>프로젝트 제목</h2>
+    <form th:action="@{/projects}" method="post" th:object="${project}" onsubmit="trimMemberEmails()">
+        <div class="mb-3">
+            <label for="name" class="form-label">프로젝트 이름</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="프로젝트 이름을 입력하세요">
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">업무 상태</label>
+            <select class="form-select" id="status" th:field="*{status}">
+                <option th:each="status : ${statuses}" th:value="${status.name()}" th:text="${status.description}">상태
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="memberEmailsContainer" class="form-label">멤버</label>
+            <div id="memberEmailsContainer">
+                <div class="input-group mb-3">
+                    <div class="input-group-append">
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="addMemberEmailField()">멤버 추가</button>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">추가</button>
+            <a class="btn btn-secondary" th:href="@{/projects}">취소</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

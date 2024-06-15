@@ -1,0 +1,19 @@
+spring:
+  data:
+    redis:
+      host: 133.186.241.167
+      port: 6379
+      password: "*N2vya7H@muDTwdNMR!"
+      database: 33
+  session:
+    timeout: 18000
+api:
+  account-service:
+    base-url: http://localhost:8081
+  project-service:
+    base-url: http://localhost:8082
+
+
+server:
+  port: 8080
+  address: localhost

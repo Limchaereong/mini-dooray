@@ -1,0 +1,6 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/projects' -i -X POST \
+    -H 'Content-Type: application/json' \
+    -d '{"name":"New Project","status":"ACTIVE","adminUserId":1,"memberIds":[1,2]}'
+----

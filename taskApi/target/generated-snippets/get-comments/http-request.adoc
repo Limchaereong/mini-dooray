@@ -1,0 +1,6 @@
+[source,http,options="nowrap"]
+----
+GET /projects/1/tasks/1/comments HTTP/1.1
+Host: localhost:8080
+
+----

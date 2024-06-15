@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단계 설정</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .header {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .sub-header {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .milestone-inputs {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .milestone-inputs input[type="text"] {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .milestone-inputs button {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .milestone-inputs button:first-child {
+            background-color: #007bff; /* 파란색 */
+            color: white;
+        }
+
+        .milestone-item .milestone-actions button.edit-button {
+            background-color: #6c757d; /* 회색 */
+            color: white;
+        }
+
+        .milestone-item .milestone-actions button.delete-button {
+            background-color: #dc3545; /* 빨간색 */
+            color: white;
+        }
+
+        .milestone-list {
+            margin-top: 20px;
+        }
+
+        .milestone-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .milestone-item .title {
+            font-weight: bold;
+        }
+
+        .milestone-item .dates {
+            color: #555;
+        }
+
+        .milestone-item .milestone-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .milestone-item .milestone-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: #333;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <button type="button" class="close-button" onclick="history.back();">&times;</button>
+    <div class="header">업무 &gt; 단계</div>
+    <div class="sub-header">속성별로 단계를 등록하고, 업무에 적용하면 업무를 쉽게 분류할 수 있습니다.</div>
+    <form class="milestone-inputs" method="get"
+          th:action="@{/projects/{projectId}/milestones/new (projectId=${projectId})}">
+        <button type="submit" class="add-button">추가</button>
+    </form>
+    <div class="milestone-list">
+        <h3>마일스톤 리스트</h3>
+        <div th:each="milestone : ${milestones}" class="milestone-item">
+            <div class="title" th:text="${milestone.milestoneName()}"></div>
+            <div class="dates" th:if="${milestone.milestoneStartDate()} and ${milestone.milestoneEndDate()}"
+                 th:text="'기간: ' + ${#temporals.format(milestone.milestoneStartDate(), 'yyyy-MM-dd HH:mm')} + ' - ' + ${#temporals.format(milestone.milestoneEndDate(), 'yyyy-MM-dd HH:mm')}"></div>
+            <div class="dates"
+                 th:unless="${milestone.milestoneStartDate()} and ${milestone.milestoneEndDate()}">기간 없음
+            </div>
+            <div class="milestone-actions">
+                <a th:href="@{'http://localhost:8080/projects/{projectId}/milestones/update/{milestoneId}' (projectId = ${projectId},milestoneId=${milestone.milestoneId()})}"
+                   class="edit-link">
+                    <button type="button" class="edit-button">편집</button>
+                </a>
+                <form class="delete-link" method="post"
+                      th:action="@{'/projects/{projectId}/milestones/delete/{milestoneId}' (projectId=${projectId}, milestoneId=${milestone.milestoneId()})}">
+                    <button type="submit" class="delete-button">삭제</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

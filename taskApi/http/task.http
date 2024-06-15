@@ -1,0 +1,43 @@
+### 특정 프로젝트의 모든 태스크 조회
+GET http://localhost:8082/projects/1/tasks
+Accept: application/json
+
+###
+
+### 특정 태스크 조회
+GET http://localhost:8082/projects/1/tasks/37
+Accept: application/json
+
+###
+
+### 새로운 태스크 생성
+POST http://localhost:8082/projects/1/tasks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "New Task",
+  "description": "Task description",
+  "status": "DONE",
+  "milestoneId": null
+}
+
+###
+
+### 태스크 업데이트
+PUT http://localhost:8082/projects/1/tasks/37
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Updated Task",
+  "description": "Updated description",
+  "status": "IN_PROGRESS",
+  "milestoneId": 1
+}
+
+###
+
+### 태스크 삭제
+DELETE http://localhost:8082/projects/1/tasks/69
+Accept: application/json

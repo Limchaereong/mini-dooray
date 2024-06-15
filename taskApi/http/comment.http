@@ -1,0 +1,33 @@
+### 특정 태스크의 모든 댓글 조회
+GET http://localhost:8082/projects/1/tasks/1/comments
+Accept: application/json
+
+###
+
+### 새로운 댓글 생성
+POST http://localhost:8082/projects/1/tasks/1/comments
+Content-Type: application/json
+Accept: application/json
+
+{
+  "commentContent": "ㅅㅐ로운 댓글",
+  "taskId": 1
+}
+
+###
+
+### 특정 댓글 업데이트
+PUT http://localhost:8082/projects/1/tasks/1/comments/34
+Content-Type: application/json
+Accept: application/json
+
+{
+  "commentContent": "수정한 댓글",
+  "taskId": 1
+}
+
+###
+
+### 특정 댓글 삭제
+DELETE http://localhost:8082/projects/1/tasks/1/comments/34
+Accept: application/json
